@@ -1,0 +1,34 @@
+
+def cipher(string:str, password:str):
+    """
+    Посимвольная операция xor между string и password.
+    """
+    new_s = ""
+    new_pass = cut(string, password)
+    for i in range(len(string)):
+        new_s += chr(ord(string[i]) ^ ord(new_pass[i]))
+    return new_s.encode('ascii')
+
+def cut(base:str, to_cut:str):
+    """
+    Выравнивание строки to_cut по длине base
+    """
+    lc, lb = len(to_cut), len(base)
+    if lb == lc:
+        return to_cut
+    elif lb > lc:
+        new_string = to_cut
+        for x in range(lb - lc):
+            new_string += to_cut[x]  
+        return new_string
+    elif lb < lc:
+        return to_cut[:lb]
+    else:
+      print("Something went wrong")
+
+def main():
+    print(cipher("Hello world!", "password123"))
+    print(cipher("8\x04\x1f\x1f\x18O\x05\x0bC^WQ", "password123"))
+
+if __name__ == "__main__":
+    main()
